@@ -417,6 +417,48 @@ dialog.closing::backdrop{opacity:0;transition-duration:.22s}
  .f input,.f textarea{box-shadow:inset 0 0 0 2px #fff}
 }
 @media (prefers-reduced-transparency:reduce){.nav{--nb:#1F1F1F}.nav.on-light{--nb:#fff}.nav:before{-webkit-backdrop-filter:none;backdrop-filter:none}.menu{-webkit-backdrop-filter:none;backdrop-filter:none}dialog::backdrop{-webkit-backdrop-filter:none;backdrop-filter:none}}
+
+/* registro de visita */
+#reg{width:min(580px,calc(100vw - 24px));border-radius:28px;border-top:6px solid var(--red);background:#fff}
+#reg[open]{animation:rgin .32s var(--ease)}
+@keyframes rgin{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.rg{position:relative;padding:clamp(24px,5vw,40px);display:grid;gap:16px}
+.rg h3{font:800 clamp(26px,5vw,34px)/1.05 Montserrat;letter-spacing:-.02em;text-transform:uppercase}
+.rg-sub{font:700 11px Montserrat;letter-spacing:.16em;text-transform:uppercase;color:var(--g2);margin-top:-6px}
+.rg-x{position:absolute;top:10px;right:14px;width:44px;height:44px;border:0;background:none;font-size:30px;line-height:1;color:var(--g3);cursor:pointer;border-radius:50%}
+.rg-x:hover{color:var(--red)}
+.rg-ctx{background:var(--bg2);border-radius:14px;padding:12px 16px;font-size:15px;line-height:1.5}
+.rg-note{background:#fdf1f2;border:1px solid #f3c9cd;border-radius:14px;padding:14px 16px;font-size:14.5px;line-height:1.55}
+.rg-f{display:grid;gap:7px;min-width:0}
+.rg-f>label,.rg-lab{display:block;font:700 11px Montserrat;letter-spacing:.14em;text-transform:uppercase;color:var(--g3)}
+.rg input[type=text],.rg input[type=email],.rg input[type=tel],.rg select{width:100%;border:1.5px solid var(--g1);border-radius:16px;background:var(--bg2);color:var(--ink);padding:15px 16px;font:400 16px Lato;min-height:52px;transition:border-color .2s ease,background-color .2s ease}
+.rg select{font:700 12px Montserrat;letter-spacing:.14em;text-transform:uppercase;appearance:auto}
+.rg input:focus,.rg select:focus{outline:0;border-color:var(--red);background:#fff}
+.rg [aria-invalid=true]{border-color:var(--red)!important}
+.rg-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rg-sec{font:700 11px Montserrat;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-top:6px}
+.rg-chk{display:flex;align-items:center;gap:12px;font:700 12px Montserrat;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;min-height:44px}
+.rg-chk input{width:22px;height:22px;accent-color:var(--red);flex:none}
+.rg-box{border:1.5px dashed var(--g1);border-radius:18px;padding:16px;display:grid;gap:10px;background:var(--bg2)}
+.rg-box .rg-lab{margin-bottom:-2px}
+.rg-drop{border:1.5px dashed #c9ccd1;border-radius:18px;padding:26px 16px;text-align:center;cursor:pointer;background:var(--bg2);display:grid;gap:6px;justify-items:center;transition:border-color .2s ease,background-color .2s ease}
+.rg-drop:hover,.rg-drop.over{border-color:var(--red);background:#fff}
+.rg-drop:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.rg-drop svg{width:40px;height:40px;stroke:var(--red);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rg-drop b{font:700 11px Montserrat;letter-spacing:.12em;text-transform:uppercase}
+.rg-drop small{color:var(--g3);font-size:13px}
+.rg-drop.has b{color:var(--ink)}
+.rg-e{color:var(--red);font:700 13px/1.4 Lato}
+.rg [hidden]{display:none!important}.rg-e[hidden]{display:none}
+.rg-go{width:100%;min-height:58px;border-radius:999px;border:0;font-size:13px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.rg-go[disabled]{opacity:.65;cursor:progress}
+.rg-ok{display:grid;gap:14px;justify-items:start;padding:8px 0}
+.rg-ok svg{width:56px;height:56px;stroke:var(--red);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rg-ok p{max-width:44ch}
+.rg-fail{background:#fdf1f2;border:1px solid #f3c9cd;border-radius:14px;padding:12px 16px;font-size:14.5px}
+.rg-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+@media (max-width:520px){.rg-2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){#reg[open]{animation:none}}
 </style>
 </head>
 <body>
@@ -627,6 +669,54 @@ dialog.closing::backdrop{opacity:0;transition-duration:.22s}
   </div>
 </footer>
 
+
+<dialog id="reg" aria-labelledby="rg-t">
+  <form class="rg" id="rgf" novalidate enctype="multipart/form-data">
+    <button type="button" class="rg-x" id="rg-x" aria-label="Cerrar">&times;</button>
+    <div id="rg-main" style="display:grid;gap:16px">
+      <div><h3 id="rg-t">Registro oficial</h3><p class="rg-sub">Completa tus datos para reservar cupo</p></div>
+      <p class="rg-ctx" id="rg-ctx"></p>
+      <div class="rg-note"><b>Importante:</b> Si eres miembro de algún capítulo, recuerda indicar el nombre. Si has sido invitado por alguno de nuestros miembros, por favor indica el nombre del miembro.</div>
+      <div class="rg-f"><label for="rg-tipo">¿Cómo nos visitas?</label>
+        <select id="rg-tipo" name="Tipo de visita"><option value="Invitado">Invitado</option><option value="Visitante (otro capítulo)">Visitante (otro capítulo)</option></select></div>
+      <div class="rg-f" id="rg-wi"><label for="rg-inv">¿Quién te invitó?</label><input type="text" id="rg-inv" name="Invitado por" autocomplete="off" placeholder="Nombre del miembro"><p class="rg-e" id="rg-inv-e" hidden></p></div>
+      <div class="rg-f" id="rg-wc" hidden><label for="rg-cap">Nombre de tu capítulo</label><input type="text" id="rg-cap" name="Capítulo" autocomplete="off" placeholder="Nombre de tu capítulo" disabled><p class="rg-e" id="rg-cap-e" hidden></p></div>
+      <div class="rg-sec">Tus datos</div>
+      <div class="rg-f"><label for="rg-nom">Nombre y apellidos</label><input type="text" id="rg-nom" name="Nombre y apellidos" autocomplete="name" placeholder="Tu nombre completo"><p class="rg-e" id="rg-nom-e" hidden></p></div>
+      <div class="rg-2">
+        <div class="rg-f"><label for="rg-mail">Email</label><input type="email" id="rg-mail" name="email" autocomplete="email" placeholder="ejemplo@correo.com"><p class="rg-e" id="rg-mail-e" hidden></p></div>
+        <div class="rg-f"><label for="rg-wa">WhatsApp</label><input type="tel" id="rg-wa" name="WhatsApp" autocomplete="tel" placeholder="999 999 999"><p class="rg-e" id="rg-wa-e" hidden></p></div>
+      </div>
+      <div class="rg-2">
+        <div class="rg-f"><label for="rg-emp">Empresa</label><input type="text" id="rg-emp" name="Empresa" autocomplete="organization" placeholder="Tu empresa"><p class="rg-e" id="rg-emp-e" hidden></p></div>
+        <div class="rg-f"><label for="rg-rub">Rubro / especialidad</label><input type="text" id="rg-rub" name="Rubro" autocomplete="off" placeholder="Ej: Inmobiliaria"><p class="rg-e" id="rg-rub-e" hidden></p></div>
+      </div>
+      <div class="rg-box">
+        <span class="rg-lab">Comprobante (opcional)</span>
+        <label class="rg-chk"><input type="checkbox" id="rg-fact"> ¿Deseas factura?</label>
+        <div class="rg-f" id="rg-wr" hidden><input type="text" id="rg-ruc" name="RUC" inputmode="numeric" autocomplete="off" placeholder="RUC (11 dígitos)" aria-label="RUC, 11 dígitos" disabled><p class="rg-e" id="rg-ruc-e" hidden></p></div>
+      </div>
+      <div class="rg-f"><span class="rg-lab" id="rg-fl">Comprobante de pago</span>
+        <div class="rg-drop" id="rg-drop" tabindex="0" role="button" aria-labelledby="rg-fl rg-fname">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>
+          <b id="rg-fname">Sube tu voucher (JPG, PNG, PDF)</b><small>Tamaño máximo: 5 MB</small>
+        </div>
+        <input type="file" id="rg-file" name="Voucher" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" hidden>
+        <p class="rg-e" id="rg-file-e" role="alert" hidden></p></div>
+      <input class="rg-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="rg-e" id="rg-form-e" role="alert" hidden>Revisa los campos marcados en rojo.</p>
+      <div class="rg-fail" id="rg-fail" role="alert" hidden></div>
+      <button class="btn rg-go" id="rg-go" type="submit">Confirmar mi asistencia</button>
+    </div>
+    <div class="rg-ok" id="rg-ok" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <h3>¡Registro recibido!</h3>
+      <p id="rg-okt">Enviamos tus datos al equipo de Cumbre. Te contactaremos para confirmar tu asistencia.</p>
+      <button type="button" class="btn" id="rg-close2">Cerrar</button>
+    </div>
+  </form>
+</dialog>
+
 <dialog id="dlg" aria-labelledby="dn">
   <div class="mh"><div class="av" id="dav"></div><div class="who"><small id="ds"></small><h3 id="dn"></h3><p class="sub" id="dsub"></p><p class="co" id="dc"></p></div><button class="x" id="dx" aria-label="Cerrar">&times;</button></div>
   <div class="mb">
@@ -643,7 +733,7 @@ dialog.closing::backdrop{opacity:0;transition-duration:.22s}
 <script src="reuniones.js"></script>
 <script>
 (function(){
-var M=[{"s": "Consultoría", "n": "Sara Arangurí Alcantara", "e": "E&S Asesores Asociados S.A.C", "r": "Consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria", "x": "Consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria.", "em": "saranguri@eysasesores.com"}, {"s": "Consultoría", "n": "Roger Liy", "e": "", "r": "Director independiente", "x": "Director independiente.", "w": "A personas y organizaciones que necesitan una solución confiable en director independiente.", "em": "rogerdaniel.liy@gmail.com"}, {"s": "Consultoría", "n": "Diego Cáceres B.", "e": "ITL Soluciones Integrales SAC", "r": "Subvenciones en innovación y digitalización empresarial", "x": "Subvenciones en innovación y digitalización empresarial.", "w": "A personas y organizaciones que necesitan una solución confiable en subvenciones en innovación y digitalización empresarial.", "em": "dcaceresb@trayector.com"}, {"s": "Consultoría", "n": "Jessica Herrera", "e": "Capitale", "r": "Selección y evaluación de talento", "x": "Selección y evaluación de talento.", "w": "A personas y organizaciones que necesitan una solución confiable en selección y evaluación de talento.", "em": "jherrera@capitale.pe"}, {"s": "Consultoría", "n": "Jhan Pierre Mejía", "e": "ISAF Consultores", "r": "Consultoría, capacitación y auditorías ISO", "x": "Consultoría, capacitación y auditorías ISO.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría, capacitación y auditorías ISO.", "em": "info@isafconsultores.pe"}, {"s": "Consultoría", "n": "Alessandra Pomarino", "e": "AP Alessandra Pomarino", "r": "Marca personal e imagen pública estratégica", "x": "Marca personal e imagen pública estratégica.", "w": "A personas y organizaciones que necesitan una solución confiable en marca personal e imagen pública estratégica.", "em": "apomarino@gmail.com"}, {"s": "Consultoría", "n": "Mario Galarza Peña", "e": "MG Group Consulting SAC", "r": "Estrategia y marketing", "x": "Estrategia y marketing.", "w": "A personas y organizaciones que necesitan una solución confiable en estrategia y marketing.", "em": "mgalarza@mg-group.com.pe"}, {"s": "Tecnología", "n": "Alan Luna", "e": "Amazon TI", "r": "Infraestructura tecnológica", "x": "Infraestructura tecnológica.", "w": "A personas y organizaciones que necesitan una solución confiable en infraestructura tecnológica.", "em": "aluna@amazonti.com"}, {"s": "Tecnología", "n": "Jonathan Medina", "e": "SEKURA SAC", "r": "Especialistas en Ciberseguridad", "x": "Especialistas en ciberseguridad.", "w": "A personas y organizaciones que necesitan una solución confiable en ciberseguridad.", "em": "jmedina@sekura.pe"}, {"s": "Tecnología", "n": "Juan Ureta Guerra", "e": "Escuela de Estrategia, Argumentación e Inteligencia Artificial", "r": "Procesos de comunicación y evaluación de información avanzada", "x": "Procesos de comunicación y evaluación de información avanzada.", "w": "A personas y organizaciones que necesitan una solución confiable en procesos de comunicación y evaluación de información avanzada.", "em": "ureta@largumenta.com"}, {"s": "Bienestar", "n": "Romina Jarama", "e": "Nutrihab SAC", "r": "Consultoría nutricional corporativa", "x": "Consultoría nutricional corporativa.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría nutricional corporativa.", "em": "romina.jarama@nutrihab.pe"}, {"s": "Bienestar", "n": "Catherine Huamaní", "e": "Kilarys", "r": "Joyería fina", "x": "Joyería fina.", "w": "A personas y organizaciones que necesitan una solución confiable en joyería fina.", "em": "kilarysperu@gmail.com"}, {"s": "Bienestar", "n": "Diógenes Valderrama", "e": "Soluciones Médico Quirúrgico del Perú SAC", "r": "Médico urólogo", "x": "Médico urólogo.", "w": "A personas y organizaciones que necesitan una solución confiable en médico urólogo.", "em": "dvalderramaguillen@gmail.com"}, {"s": "Bienestar", "n": "Violeta Ramirez", "e": "Amaram Asociación Benéfica", "r": "ONG y desarrollo social", "x": "ONG y desarrollo social.", "w": "A personas y organizaciones que necesitan una solución confiable en oNG y desarrollo social.", "em": "violeta.ramirez@amaram.org.pe"}, {"s": "Bienestar", "n": "Carla Chuquisengo", "e": "Smart Hosters EIRL", "r": "Agencia de viajes", "x": "Agencia de viajes.", "w": "A personas y organizaciones que necesitan una solución confiable en agencia de viajes.", "em": "carla_96mc@hotmail.com"}, {"s": "Bienestar", "n": "Haydee Mendoza", "e": "En Modo Chic", "r": "Ambientación de espacios, eventos y diseño floral", "x": "Ambientación de espacios, eventos y diseño floral.", "w": "A personas y organizaciones que necesitan una solución confiable en ambientación de espacios, eventos y diseño floral.", "em": "haydehinsbi@yahoo.es"}, {"s": "Bienestar", "n": "Eliana Arbulú", "e": "Bizfit-Go", "r": "Coach de transición, bienestar y vida", "x": "Coach de transición, bienestar y vida.", "w": "A personas y organizaciones que necesitan una solución confiable en coach de transición, bienestar y vida.", "em": "earbulu@bizfit-go.com"}, {"s": "Bienestar", "n": "Alexssandra Rios", "e": "Qhali Kay", "r": "Terapia física y rehabilitación", "x": "Terapia física y rehabilitación.", "w": "A personas y organizaciones que necesitan una solución confiable en terapia física y rehabilitación.", "em": "servicios.saludrios@gmail.com"}, {"s": "Bienestar", "n": "Hugo Sotillo", "e": "Creati Fun", "r": "Organización de eventos", "x": "Organización de eventos.", "w": "A personas y organizaciones que necesitan una solución confiable en organización de eventos.", "em": "hsotillo@creatifun.com"}, {"s": "Legal y financiero", "n": "Sergio Berrospi", "e": "Notaría Berrospi", "r": "Servicios notariales", "x": "Servicios notariales.", "w": "A personas y organizaciones que necesitan una solución confiable en servicios notariales.", "em": "notsbp@gmail.com"}, {"s": "Legal y financiero", "n": "Félix Villanueva", "e": "Fevia Asesores y Corredores de Seguros", "r": "Seguros en general", "x": "Seguros en general.", "w": "A personas y organizaciones que necesitan una solución confiable en seguros en general.", "em": "evillanueva@fevia.pe"}, {"s": "Legal y financiero", "n": "Giannina Chamorro", "e": "Lexy Asesores Legales", "r": "Derecho laboral empresarial", "x": "Derecho laboral empresarial.", "w": "A personas y organizaciones que necesitan una solución confiable en derecho laboral empresarial.", "em": "gchamorro@lexy.pe"}, {"s": "Legal y financiero", "n": "José Luis Torres Alarcón", "e": "Caja Piura", "r": "Intermediación financiera", "x": "Intermediación financiera.", "w": "A personas y organizaciones que necesitan una solución confiable en intermediación financiera.", "em": "jltorres@cajapiura.pe"}, {"s": "Legal y financiero", "n": "Miguel Angel Inga", "e": "Factoring", "r": "Factoring para empresas", "x": "Factoring para empresas.", "w": "A personas y organizaciones que necesitan una solución confiable en factoring para empresas.", "em": "miguelingafinanciero@gmail.com"}, {"s": "Legal y financiero", "n": "Milagros Guivar", "e": "Kuntur Capital", "r": "Finanzas e inversiones", "x": "Finanzas e inversiones.", "w": "A personas y organizaciones que necesitan una solución confiable en finanzas e inversiones.", "em": "milagros.guivar@kunturcapital.com.pe"}, {"s": "Construcción", "n": "Carlos Coll", "e": "Green & Blue Solar Solutions", "r": "Energía e iluminación solar", "x": "Energía e iluminación solar.", "w": "A personas y organizaciones que necesitan una solución confiable en energía e iluminación solar.", "em": "ccoll@greenbluesolarsolutions.com"}, {"s": "Construcción", "n": "Elmo Arias", "e": "Aribet Representaciones EIRL", "r": "Instalaciones eléctricas", "x": "Instalaciones eléctricas.", "w": "A personas y organizaciones que necesitan una solución confiable en instalaciones eléctricas.", "em": "elmo.arias@aribet.pe"}, {"s": "Construcción", "n": "Juan Carlos Marcelo Donet", "e": "Donet Constructores SAC", "r": "Construcción de casas y edificios residenciales", "x": "Construcción de casas y edificios residenciales.", "w": "A personas y organizaciones que necesitan una solución confiable en construcción de casas y edificios residenciales.", "em": "donet.constructores.sac@gmail.com"}, {"s": "Construcción", "n": "Eduardo Tarazona", "e": "Arcivil", "r": "Arquitectura, oficinas y obras comerciales", "x": "Arquitectura, oficinas y obras comerciales.", "w": "A personas y organizaciones que necesitan una solución confiable en arquitectura, oficinas y obras comerciales.", "em": "gerencia@arcivilsac.com"}, {"s": "Construcción", "n": "Julio Carlos Doig", "e": "Ladricorp Norte SAC", "r": "Ladrillos, concreto y refractarios", "x": "Ladrillos, concreto y refractarios.", "w": "A personas y organizaciones que necesitan una solución confiable en ladrillos, concreto y refractarios.", "em": "ladricorp@hotmail.com"}, {"s": "Construcción", "n": "José Cumpa", "e": "Drones Film Project", "r": "Producción audiovisual", "x": "Producción audiovisual.", "w": "A personas y organizaciones que necesitan una solución confiable en producción audiovisual.", "em": "jose@dronefilmproject.com"}, {"s": "Construcción", "n": "Alfredo Montenegro", "e": "Grupo Inmobiliario Jesús en Ti Confío SAC", "r": "Proyectos inmobiliarios de interés social", "x": "Proyectos inmobiliarios de interés social.", "w": "A personas y organizaciones que necesitan una solución confiable en proyectos inmobiliarios de interés social.", "em": "estudio_montenegro@hotmail.com"}, {"s": "Construcción", "n": "Carlos Gora", "e": "Korpwasi SAC", "r": "Inmobiliaria y construcción en Oxapampa", "x": "Inmobiliaria y construcción en Oxapampa.", "w": "A personas y organizaciones que necesitan una solución confiable en inmobiliaria y construcción en Oxapampa.", "em": "cargorok@gmail.com"}, {"s": "Construcción", "n": "Rommy Loayza", "e": "RL Vertex Proyectos", "r": "Gestión de proyectos inmobiliarios", "x": "Gestión de proyectos inmobiliarios.", "w": "A personas y organizaciones que necesitan una solución confiable en gestión de proyectos inmobiliarios.", "em": "rloayza@rlvertexproyectos.com"}, {"s": "Construcción", "n": "Jorge Luis Aguirre", "e": "MetalBlock", "r": "Fabricación y servicios de metalmecánica", "x": "Fabricación y servicios de metalmecánica.", "w": "A personas y organizaciones que necesitan una solución confiable en fabricación y servicios de metalmecánica.", "em": "j.aguirre@segurblock.pe"}, {"s": "Construcción", "n": "James Izaguirre Talledo", "e": "Juegos de Mesas Perú", "r": "Juegos recreativos", "x": "Juegos recreativos.", "w": "A personas y organizaciones que necesitan una solución confiable en juegos recreativos.", "em": "ventas@tiendadepokerperu.com"}, {"s": "Construcción", "n": "Lucy Durand Gomero", "e": "Hidrex Piscinas y Bombas SAC", "r": "Piscinas, bombeo de agua y sistemas contra incendio", "x": "Piscinas, bombeo de agua y sistemas contra incendio.", "w": "A personas y organizaciones que necesitan una solución confiable en piscinas, bombeo de agua y sistemas contra incendio.", "em": "ldurand@hydrex.pe"}, {"s": "Comercio y logística", "n": "Allison Fajardo", "e": "AVM Logistics", "r": "Agencia de aduanas", "x": "Agencia de aduanas.", "w": "A personas y organizaciones que necesitan una solución confiable en agencia de aduanas.", "em": "allison.fajardo@avmlogistics.pe"}, {"s": "Comercio y logística", "n": "Carlos Hernández", "e": "Fundo Sierralta - Piscos Upyana", "r": "Piscos personalizados", "x": "Piscos personalizados.", "w": "A personas y organizaciones que necesitan una solución confiable en piscos personalizados.", "em": "ch_sierralta@yahoo.com"}, {"s": "Comercio y logística", "n": "Michael Lau", "e": "New One Maquinaria SRL", "r": "Comercio internacional", "x": "Comercio internacional.", "w": "A personas y organizaciones que necesitan una solución confiable en comercio internacional.", "em": "mlau@newonemq.com"}, {"s": "Comercio y logística", "n": "Rubén Chirinos", "e": "Ovojaulas", "r": "Fábrica de jaulas para avicultura", "x": "Fábrica de jaulas para avicultura.", "w": "A personas y organizaciones que necesitan una solución confiable en fábrica de jaulas para avicultura.", "em": "rubenchirinos@ovojaulas.com"}, {"s": "Comercio y logística", "n": "Alexis Hernandez", "e": "Seratra SRL", "r": "Distribución y almacenaje", "x": "Distribución y almacenaje.", "w": "A personas y organizaciones que necesitan una solución confiable en distribución y almacenaje.", "em": "ah@seratra.com"}, {"s": "Comercio y logística", "n": "Jaime López", "e": "Jalo Express Supply S.A.C.", "r": "Lavandería industrial", "x": "Lavandería industrial.", "w": "A personas y organizaciones que necesitan una solución confiable en lavandería industrial.", "em": "jrlopezpastor@gmail.com"}, {"s": "Comercio y logística", "n": "Diany Thais Sánchez", "e": "Nexa Distribuciones S.A.C.", "r": "Equipos de protección personal", "x": "Equipos de protección personal.", "w": "A personas y organizaciones que necesitan una solución confiable en equipos de protección personal.", "em": "dianythais@gmail.com"}, {"s": "Comercio y logística", "n": "David Rios Zavala", "e": "4Remisse S.A.C.", "r": "Traslado ejecutivo desde y hacia el aeropuerto", "x": "Traslado ejecutivo desde y hacia el aeropuerto.", "w": "A personas y organizaciones que necesitan una solución confiable en traslado ejecutivo desde y hacia el aeropuerto.", "em": "david.rios@4remisse.com"}];
+var M_EMBED=[{"s": "Consultoría", "n": "Sara Arangurí Alcantara", "e": "E&S Asesores Asociados S.A.C", "r": "Consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria", "x": "Consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría en asuntos regulatorios para la industria farmacéutica, alimentaria y veterinaria.", "em": "saranguri@eysasesores.com"}, {"s": "Consultoría", "n": "Roger Liy", "e": "", "r": "Director independiente", "x": "Director independiente.", "w": "A personas y organizaciones que necesitan una solución confiable en director independiente.", "em": "rogerdaniel.liy@gmail.com"}, {"s": "Consultoría", "n": "Diego Cáceres B.", "e": "ITL Soluciones Integrales SAC", "r": "Subvenciones en innovación y digitalización empresarial", "x": "Subvenciones en innovación y digitalización empresarial.", "w": "A personas y organizaciones que necesitan una solución confiable en subvenciones en innovación y digitalización empresarial.", "em": "dcaceresb@trayector.com"}, {"s": "Consultoría", "n": "Jessica Herrera", "e": "Capitale", "r": "Selección y evaluación de talento", "x": "Selección y evaluación de talento.", "w": "A personas y organizaciones que necesitan una solución confiable en selección y evaluación de talento.", "em": "jherrera@capitale.pe"}, {"s": "Consultoría", "n": "Jhan Pierre Mejía", "e": "ISAF Consultores", "r": "Consultoría, capacitación y auditorías ISO", "x": "Consultoría, capacitación y auditorías ISO.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría, capacitación y auditorías ISO.", "em": "info@isafconsultores.pe"}, {"s": "Consultoría", "n": "Alessandra Pomarino", "e": "AP Alessandra Pomarino", "r": "Marca personal e imagen pública estratégica", "x": "Marca personal e imagen pública estratégica.", "w": "A personas y organizaciones que necesitan una solución confiable en marca personal e imagen pública estratégica.", "em": "apomarino@gmail.com"}, {"s": "Consultoría", "n": "Mario Galarza Peña", "e": "MG Group Consulting SAC", "r": "Estrategia y marketing", "x": "Estrategia y marketing.", "w": "A personas y organizaciones que necesitan una solución confiable en estrategia y marketing.", "em": "mgalarza@mg-group.com.pe"}, {"s": "Tecnología", "n": "Alan Luna", "e": "Amazon TI", "r": "Infraestructura tecnológica", "x": "Infraestructura tecnológica.", "w": "A personas y organizaciones que necesitan una solución confiable en infraestructura tecnológica.", "em": "aluna@amazonti.com"}, {"s": "Tecnología", "n": "Jonathan Medina", "e": "SEKURA SAC", "r": "Especialistas en Ciberseguridad", "x": "Especialistas en ciberseguridad.", "w": "A personas y organizaciones que necesitan una solución confiable en ciberseguridad.", "em": "jmedina@sekura.pe"}, {"s": "Tecnología", "n": "Juan Ureta Guerra", "e": "Escuela de Estrategia, Argumentación e Inteligencia Artificial", "r": "Procesos de comunicación y evaluación de información avanzada", "x": "Procesos de comunicación y evaluación de información avanzada.", "w": "A personas y organizaciones que necesitan una solución confiable en procesos de comunicación y evaluación de información avanzada.", "em": "ureta@largumenta.com"}, {"s": "Bienestar", "n": "Romina Jarama", "e": "Nutrihab SAC", "r": "Consultoría nutricional corporativa", "x": "Consultoría nutricional corporativa.", "w": "A personas y organizaciones que necesitan una solución confiable en consultoría nutricional corporativa.", "em": "romina.jarama@nutrihab.pe"}, {"s": "Bienestar", "n": "Catherine Huamaní", "e": "Kilarys", "r": "Joyería fina", "x": "Joyería fina.", "w": "A personas y organizaciones que necesitan una solución confiable en joyería fina.", "em": "kilarysperu@gmail.com"}, {"s": "Bienestar", "n": "Diógenes Valderrama", "e": "Soluciones Médico Quirúrgico del Perú SAC", "r": "Médico urólogo", "x": "Médico urólogo.", "w": "A personas y organizaciones que necesitan una solución confiable en médico urólogo.", "em": "dvalderramaguillen@gmail.com"}, {"s": "Bienestar", "n": "Violeta Ramirez", "e": "Amaram Asociación Benéfica", "r": "ONG y desarrollo social", "x": "ONG y desarrollo social.", "w": "A personas y organizaciones que necesitan una solución confiable en oNG y desarrollo social.", "em": "violeta.ramirez@amaram.org.pe"}, {"s": "Bienestar", "n": "Carla Chuquisengo", "e": "Smart Hosters EIRL", "r": "Agencia de viajes", "x": "Agencia de viajes.", "w": "A personas y organizaciones que necesitan una solución confiable en agencia de viajes.", "em": "carla_96mc@hotmail.com"}, {"s": "Bienestar", "n": "Haydee Mendoza", "e": "En Modo Chic", "r": "Ambientación de espacios, eventos y diseño floral", "x": "Ambientación de espacios, eventos y diseño floral.", "w": "A personas y organizaciones que necesitan una solución confiable en ambientación de espacios, eventos y diseño floral.", "em": "haydehinsbi@yahoo.es"}, {"s": "Bienestar", "n": "Eliana Arbulú", "e": "Bizfit-Go", "r": "Coach de transición, bienestar y vida", "x": "Coach de transición, bienestar y vida.", "w": "A personas y organizaciones que necesitan una solución confiable en coach de transición, bienestar y vida.", "em": "earbulu@bizfit-go.com"}, {"s": "Bienestar", "n": "Alexssandra Rios", "e": "Qhali Kay", "r": "Terapia física y rehabilitación", "x": "Terapia física y rehabilitación.", "w": "A personas y organizaciones que necesitan una solución confiable en terapia física y rehabilitación.", "em": "servicios.saludrios@gmail.com"}, {"s": "Bienestar", "n": "Hugo Sotillo", "e": "Creati Fun", "r": "Organización de eventos", "x": "Organización de eventos.", "w": "A personas y organizaciones que necesitan una solución confiable en organización de eventos.", "em": "hsotillo@creatifun.com"}, {"s": "Legal y financiero", "n": "Sergio Berrospi", "e": "Notaría Berrospi", "r": "Servicios notariales", "x": "Servicios notariales.", "w": "A personas y organizaciones que necesitan una solución confiable en servicios notariales.", "em": "notsbp@gmail.com"}, {"s": "Legal y financiero", "n": "Félix Villanueva", "e": "Fevia Asesores y Corredores de Seguros", "r": "Seguros en general", "x": "Seguros en general.", "w": "A personas y organizaciones que necesitan una solución confiable en seguros en general.", "em": "evillanueva@fevia.pe"}, {"s": "Legal y financiero", "n": "Giannina Chamorro", "e": "Lexy Asesores Legales", "r": "Derecho laboral empresarial", "x": "Derecho laboral empresarial.", "w": "A personas y organizaciones que necesitan una solución confiable en derecho laboral empresarial.", "em": "gchamorro@lexy.pe"}, {"s": "Legal y financiero", "n": "José Luis Torres Alarcón", "e": "Caja Piura", "r": "Intermediación financiera", "x": "Intermediación financiera.", "w": "A personas y organizaciones que necesitan una solución confiable en intermediación financiera.", "em": "jltorres@cajapiura.pe"}, {"s": "Legal y financiero", "n": "Miguel Angel Inga", "e": "Factoring", "r": "Factoring para empresas", "x": "Factoring para empresas.", "w": "A personas y organizaciones que necesitan una solución confiable en factoring para empresas.", "em": "miguelingafinanciero@gmail.com"}, {"s": "Legal y financiero", "n": "Milagros Guivar", "e": "Kuntur Capital", "r": "Finanzas e inversiones", "x": "Finanzas e inversiones.", "w": "A personas y organizaciones que necesitan una solución confiable en finanzas e inversiones.", "em": "milagros.guivar@kunturcapital.com.pe"}, {"s": "Construcción", "n": "Carlos Coll", "e": "Green & Blue Solar Solutions", "r": "Energía e iluminación solar", "x": "Energía e iluminación solar.", "w": "A personas y organizaciones que necesitan una solución confiable en energía e iluminación solar.", "em": "ccoll@greenbluesolarsolutions.com"}, {"s": "Construcción", "n": "Elmo Arias", "e": "Aribet Representaciones EIRL", "r": "Instalaciones eléctricas", "x": "Instalaciones eléctricas.", "w": "A personas y organizaciones que necesitan una solución confiable en instalaciones eléctricas.", "em": "elmo.arias@aribet.pe"}, {"s": "Construcción", "n": "Juan Carlos Marcelo Donet", "e": "Donet Constructores SAC", "r": "Construcción de casas y edificios residenciales", "x": "Construcción de casas y edificios residenciales.", "w": "A personas y organizaciones que necesitan una solución confiable en construcción de casas y edificios residenciales.", "em": "donet.constructores.sac@gmail.com"}, {"s": "Construcción", "n": "Eduardo Tarazona", "e": "Arcivil", "r": "Arquitectura, oficinas y obras comerciales", "x": "Arquitectura, oficinas y obras comerciales.", "w": "A personas y organizaciones que necesitan una solución confiable en arquitectura, oficinas y obras comerciales.", "em": "gerencia@arcivilsac.com"}, {"s": "Construcción", "n": "Julio Carlos Doig", "e": "Ladricorp Norte SAC", "r": "Ladrillos, concreto y refractarios", "x": "Ladrillos, concreto y refractarios.", "w": "A personas y organizaciones que necesitan una solución confiable en ladrillos, concreto y refractarios.", "em": "ladricorp@hotmail.com"}, {"s": "Construcción", "n": "José Cumpa", "e": "Drones Film Project", "r": "Producción audiovisual", "x": "Producción audiovisual.", "w": "A personas y organizaciones que necesitan una solución confiable en producción audiovisual.", "em": "jose@dronefilmproject.com"}, {"s": "Construcción", "n": "Alfredo Montenegro", "e": "Grupo Inmobiliario Jesús en Ti Confío SAC", "r": "Proyectos inmobiliarios de interés social", "x": "Proyectos inmobiliarios de interés social.", "w": "A personas y organizaciones que necesitan una solución confiable en proyectos inmobiliarios de interés social.", "em": "estudio_montenegro@hotmail.com"}, {"s": "Construcción", "n": "Carlos Gora", "e": "Korpwasi SAC", "r": "Inmobiliaria y construcción en Oxapampa", "x": "Inmobiliaria y construcción en Oxapampa.", "w": "A personas y organizaciones que necesitan una solución confiable en inmobiliaria y construcción en Oxapampa.", "em": "cargorok@gmail.com"}, {"s": "Construcción", "n": "Rommy Loayza", "e": "RL Vertex Proyectos", "r": "Gestión de proyectos inmobiliarios", "x": "Gestión de proyectos inmobiliarios.", "w": "A personas y organizaciones que necesitan una solución confiable en gestión de proyectos inmobiliarios.", "em": "rloayza@rlvertexproyectos.com"}, {"s": "Construcción", "n": "Jorge Luis Aguirre", "e": "MetalBlock", "r": "Fabricación y servicios de metalmecánica", "x": "Fabricación y servicios de metalmecánica.", "w": "A personas y organizaciones que necesitan una solución confiable en fabricación y servicios de metalmecánica.", "em": "j.aguirre@segurblock.pe"}, {"s": "Construcción", "n": "James Izaguirre Talledo", "e": "Juegos de Mesas Perú", "r": "Juegos recreativos", "x": "Juegos recreativos.", "w": "A personas y organizaciones que necesitan una solución confiable en juegos recreativos.", "em": "ventas@tiendadepokerperu.com"}, {"s": "Construcción", "n": "Lucy Durand Gomero", "e": "Hidrex Piscinas y Bombas SAC", "r": "Piscinas, bombeo de agua y sistemas contra incendio", "x": "Piscinas, bombeo de agua y sistemas contra incendio.", "w": "A personas y organizaciones que necesitan una solución confiable en piscinas, bombeo de agua y sistemas contra incendio.", "em": "ldurand@hydrex.pe"}, {"s": "Comercio y logística", "n": "Allison Fajardo", "e": "AVM Logistics", "r": "Agencia de aduanas", "x": "Agencia de aduanas.", "w": "A personas y organizaciones que necesitan una solución confiable en agencia de aduanas.", "em": "allison.fajardo@avmlogistics.pe"}, {"s": "Comercio y logística", "n": "Carlos Hernández", "e": "Fundo Sierralta - Piscos Upyana", "r": "Piscos personalizados", "x": "Piscos personalizados.", "w": "A personas y organizaciones que necesitan una solución confiable en piscos personalizados.", "em": "ch_sierralta@yahoo.com"}, {"s": "Comercio y logística", "n": "Michael Lau", "e": "New One Maquinaria SRL", "r": "Comercio internacional", "x": "Comercio internacional.", "w": "A personas y organizaciones que necesitan una solución confiable en comercio internacional.", "em": "mlau@newonemq.com"}, {"s": "Comercio y logística", "n": "Rubén Chirinos", "e": "Ovojaulas", "r": "Fábrica de jaulas para avicultura", "x": "Fábrica de jaulas para avicultura.", "w": "A personas y organizaciones que necesitan una solución confiable en fábrica de jaulas para avicultura.", "em": "rubenchirinos@ovojaulas.com"}, {"s": "Comercio y logística", "n": "Alexis Hernandez", "e": "Seratra SRL", "r": "Distribución y almacenaje", "x": "Distribución y almacenaje.", "w": "A personas y organizaciones que necesitan una solución confiable en distribución y almacenaje.", "em": "ah@seratra.com"}, {"s": "Comercio y logística", "n": "Jaime López", "e": "Jalo Express Supply S.A.C.", "r": "Lavandería industrial", "x": "Lavandería industrial.", "w": "A personas y organizaciones que necesitan una solución confiable en lavandería industrial.", "em": "jrlopezpastor@gmail.com"}, {"s": "Comercio y logística", "n": "Diany Thais Sánchez", "e": "Nexa Distribuciones S.A.C.", "r": "Equipos de protección personal", "x": "Equipos de protección personal.", "w": "A personas y organizaciones que necesitan una solución confiable en equipos de protección personal.", "em": "dianythais@gmail.com"}, {"s": "Comercio y logística", "n": "David Rios Zavala", "e": "4Remisse S.A.C.", "r": "Traslado ejecutivo desde y hacia el aeropuerto", "x": "Traslado ejecutivo desde y hacia el aeropuerto.", "w": "A personas y organizaciones que necesitan una solución confiable en traslado ejecutivo desde y hacia el aeropuerto.", "em": "david.rios@4remisse.com"}];
 var SEC=[
  {n:"Consultoría",ic:'<path d="M8 40V10l16-6 16 6v30z"/><path d="M16 18h16M16 26h16M16 34h10"/>'},
  {n:"Tecnología",ic:'<rect x="6" y="8" width="36" height="26" rx="3"/><path d="M16 42h16M24 34v8M17 20l-4 4 4 4M31 20l4 4-4 4"/>'},
@@ -656,27 +746,33 @@ var $=function(s,c){return(c||document).querySelector(s)};
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function norm(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
 function ini(n){var p=n.replace(/[^A-Za-zÀ-ÿ\s]/g,"").split(/\s+/).filter(Boolean);return(p[0][0]+(p[1]?p[1][0]:"")).toUpperCase()}
-var counts={};M.forEach(function(m){counts[m.s]=(counts[m.s]||0)+1});
+var M=M_EMBED,counts={},SECall=SEC.slice(),ICDEF='<circle cx="24" cy="16" r="7"/><path d="M8 42c0-9 7-15 16-15s16 6 16 15"/>';
 var cur="Todos";
 var mq=matchMedia("(prefers-reduced-motion:reduce)");
 
 /* soluciones */
 var sol=$("#sol");
-SEC.forEach(function(s,i){
-  var b=document.createElement("button");b.className="tile";b.type="button";
-  b.setAttribute("aria-label",s.n+": ver "+counts[s.n]+" especialistas");
-  b.innerHTML='<div class="top"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true">'+s.ic+'</svg><span class="ct">'+String(counts[s.n]).padStart(2,"0")+' especialistas</span></div><div><h3>'+s.n+'</h3><div class="go">Ver especialistas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>';
-  b.addEventListener("click",function(){setSec(s.n);$("#especialistas").scrollIntoView({behavior:mq.matches?"auto":"smooth"})});
-  sol.appendChild(b);
-});
+function buildSol(){
+  sol.innerHTML="";
+  SECall.forEach(function(s){
+    var b=document.createElement("button");b.className="tile";b.type="button";
+    b.setAttribute("aria-label",s.n+": ver "+(counts[s.n]||0)+" especialistas");
+    b.innerHTML='<div class="top"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true">'+s.ic+'</svg><span class="ct">'+String(counts[s.n]||0).padStart(2,"0")+' especialistas</span></div><div><h3>'+esc(s.n)+'</h3><div class="go">Ver especialistas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>';
+    b.addEventListener("click",function(){setSec(s.n);$("#especialistas").scrollIntoView({behavior:mq.matches?"auto":"smooth"})});
+    sol.appendChild(b);
+  });
+}
 
 /* chips */
 var chips=$("#chips");
-["Todos"].concat(SEC.map(function(s){return s.n})).forEach(function(n){
-  var c=document.createElement("button");c.type="button";c.className="chip";c.dataset.s=n;
-  c.innerHTML=n+'<span class="c">'+(n==="Todos"?M.length:counts[n])+'</span>';
-  c.addEventListener("click",function(){setSec(n)});chips.appendChild(c);
-});
+function buildChips(){
+  [].forEach.call(chips.querySelectorAll(".chip"),function(c){c.remove()});
+  ["Todos"].concat(SECall.map(function(s){return s.n})).forEach(function(n){
+    var c=document.createElement("button");c.type="button";c.className="chip";c.dataset.s=n;
+    c.innerHTML=esc(n)+'<span class="c">'+(n==="Todos"?M.length:(counts[n]||0))+'</span>';
+    c.addEventListener("click",function(){setSec(n)});chips.appendChild(c);
+  });
+}
 var pill=document.createElement("span");pill.className="pill";pill.setAttribute("aria-hidden","true");chips.insertBefore(pill,chips.firstChild);chips.classList.add("noanim");
 function movePill(){var a=chips.querySelector('.chip[aria-pressed="true"]');if(!a)return;pill.style.width=a.offsetWidth+"px";pill.style.height=a.offsetHeight+"px";pill.style.transform="translate("+a.offsetLeft+"px,"+a.offsetTop+"px)"}
 function pillNow(){chips.classList.add("noanim");movePill();requestAnimationFrame(function(){requestAnimationFrame(function(){chips.classList.remove("noanim")})})}
@@ -685,12 +781,16 @@ function setSec(n){cur=n;[].forEach.call(chips.querySelectorAll(".chip"),functio
 /* directory: las tarjetas se crean una sola vez y solo se muestran u ocultan */
 var dir=$("#dir"),q=$("#q"),dcount=$("#dcount"),arrow='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 var empty=document.createElement("div");empty.className="empty";empty.hidden=true;empty.innerHTML='<b>No encontramos coincidencias</b>Prueba con otro nombre, empresa o sector.';
-var cards=M.map(function(m){
-  var b=document.createElement("button");b.type="button";b.className="card";
-  b.innerHTML='<div class="av" aria-hidden="true">'+ini(m.n)+'</div><div class="ct"><h3>'+esc(m.n)+'</h3>'+(m.e?'<p class="co">'+esc(m.e)+'</p>':'')+'<p class="sm">'+esc(m.r)+'</p><span class="go">Conocer especialista '+arrow+'</span></div>';
-  b.setAttribute("aria-label","Conocer a "+m.n+(m.e?", "+m.e:"")+". "+m.r);
-  b.addEventListener("click",function(){openDlg(m,b)});dir.appendChild(b);m.k=norm(m.n+" "+m.e+" "+m.s+" "+m.r);return b;
-});
+var cards=[];
+function buildCards(){
+  [].forEach.call(dir.querySelectorAll(".card"),function(c){c.remove()});
+  cards=M.map(function(m){
+    var b=document.createElement("button");b.type="button";b.className="card";
+    b.innerHTML='<div class="av" aria-hidden="true">'+ini(m.n)+'</div><div class="ct"><h3>'+esc(m.n)+'</h3>'+(m.e?'<p class="co">'+esc(m.e)+'</p>':'')+'<p class="sm">'+esc(m.r)+'</p><span class="go">Conocer especialista '+arrow+'</span></div>';
+    b.setAttribute("aria-label","Conocer a "+m.n+(m.e?", "+m.e:"")+". "+m.r);
+    b.addEventListener("click",function(){openDlg(m,b)});dir.insertBefore(b,empty);m.k=norm(m.n+" "+m.e+" "+m.s+" "+m.r);return b;
+  });
+}
 dir.appendChild(empty);
 var firstRender=true,EO="cubic-bezier(.23,1,.32,1)";
 function render(){
@@ -711,7 +811,15 @@ function render(){
   empty.hidden=n>0;dcount.textContent=n===1?"1 especialista":n+" especialistas";firstRender=false;
 }
 q.addEventListener("input",render);
-setSec("Todos");
+function build(list){
+  M=list;SECall=SEC.slice();counts={};
+  M.forEach(function(m){counts[m.s]=(counts[m.s]||0)+1;if(!SECall.some(function(x){return x.n===m.s}))SECall.push({n:m.s,ic:ICDEF})});
+  buildSol();buildChips();buildCards();
+  firstRender=true;
+  setSec(cur!=="Todos"&&!counts[cur]?"Todos":cur);
+  pillNow();
+}
+build(M_EMBED);
 pillNow();addEventListener("resize",pillNow);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(pillNow);
 
 /* modal: nace de la tarjeta tocada y vuelve a ella */
@@ -746,6 +854,48 @@ dlg.addEventListener("close",function(){dclosing=false;dlg.classList.remove("clo
 dlg.addEventListener("cancel",function(e){e.preventDefault();closeDlg()});
 $("#dx").addEventListener("click",closeDlg);$("#dc2").addEventListener("click",closeDlg);
 dlg.addEventListener("click",function(e){if(e.target===dlg)closeDlg()});
+
+/* especialistas: se leen del archivo especialistas.csv (si no se puede leer, se usa la copia incluida en la página) */
+var SPEC_URL="especialistas.csv",SPEC_EVERY=30000,specSig=JSON.stringify(M_EMBED),specPending=null;
+function parseCSV(t){
+  t=t.replace(/^﻿/,"");
+  var first=t.split(/\r?\n/)[0]||"",sep=(first.split(";").length>first.split(",").length)?";":",";
+  var rows=[],row=[],f="",q=false,i,c;
+  for(i=0;i<t.length;i++){c=t[i];
+    if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}
+    else if(c==='"')q=true;
+    else if(c===sep){row.push(f);f=""}
+    else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(f);rows.push(row);row=[];f=""}
+    else f+=c}
+  if(f!==""||row.length){row.push(f);rows.push(row)}
+  return rows.filter(function(r){return r.some(function(x){return x.trim()!==""})});
+}
+function csvToSpecs(t){
+  var rows=parseCSV(t);if(rows.length<2)return null;
+  var key=function(h){return norm(h).replace(/[^a-z_]/g,"")},H=rows[0].map(key),ix=function(n){return H.indexOf(n)};
+  var c={a:ix("activo"),s:ix("sector"),n:ix("nombre"),e:ix("empresa"),r:ix("resumen"),w:ix("a_quien_ayudo"),x:ix("especialidad"),m:ix("email")};
+  if(c.n<0||c.s<0)return null;
+  var g=function(r,k){return k<0?"":String(r[k]||"").trim()},out=[];
+  rows.slice(1).forEach(function(r){
+    var act=norm(g(r,c.a));if(act==="no"||act==="n"||act==="0"||act==="false")return;
+    var n=g(r,c.n),s=g(r,c.s);if(!n||!s)return;
+    var res=g(r,c.r)||g(r,c.x);
+    out.push({s:s,n:n,e:g(r,c.e),r:res,x:g(r,c.x)||res,w:g(r,c.w)||res,em:g(r,c.m)||"cumbre@somoscumbre.com"});
+  });
+  return out.length?out:null;
+}
+function applySpecs(list){
+  var sig=JSON.stringify(list);if(sig===specSig)return;
+  if(typeof dlg!=="undefined"&&dlg.open){specPending=list;return}
+  specSig=sig;specPending=null;build(list);
+}
+function loadSpecs(){
+  if(!window.fetch)return;
+  fetch(SPEC_URL+"?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():Promise.reject()}).then(function(t){var l=csvToSpecs(t);if(l)applySpecs(l)}).catch(function(){});
+}
+loadSpecs();setInterval(loadSpecs,SPEC_EVERY);
+addEventListener("focus",loadSpecs);document.addEventListener("visibilitychange",function(){if(!document.hidden)loadSpecs()});
+dlg.addEventListener("close",function(){if(specPending)applySpecs(specPending)});
 
 /* nav */
 var nav=$("#nav"),prog=$("#progress");
@@ -808,16 +958,17 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 function observe(){document.querySelectorAll(".rv:not(.in)").forEach(function(el){io.observe(el)})}observe();
 
 /* reuniones: se leen de reuniones.js (junto a la página); si falta, se usa la lista incluida */
-var MEET=(window.REUNIONES&&window.REUNIONES.length?window.REUNIONES:[{"fecha": "2026-10-22", "formato": "Presencial", "detalles": "Hotel Colón Miraflores · 6:30 am"}, {"fecha": "2026-10-29", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-05", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-12", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-19", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-26", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-03", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-10", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-17", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-24", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-31", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}]);
+var MEET=(window.REUNIONES&&window.REUNIONES.length?window.REUNIONES:[{"fecha": "2026-10-22", "formato": "Presencial", "detalles": "Hotel Colón Miraflores · 6:30 am"}, {"fecha": "2026-10-29", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-05", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-12", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-11-19", "formato": "Presencial", "detalles": "Hotel Colón Miraflores · 6:30 am"}, {"fecha": "2026-11-26", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-03", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-10", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-17", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-24", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}, {"fecha": "2026-12-31", "formato": "Virtual", "detalles": "Enlace de conexión y horario: por confirmar."}]);
 var DIAS=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 function pf(s){var p=String(s).split("-");return new Date(+p[0],+p[1]-1,+p[2])}
+var MLIST=[];
 function renderMeet(list){
   var body=$("#mbody"),note=$("#mnote");
   if(!Array.isArray(list))return;
   list=list.filter(function(r){return r&&/^\d{4}-\d{2}-\d{2}$/.test(r.fecha)}).sort(function(a,b){return a.fecha<b.fecha?-1:1});
   var hoy=new Date();hoy.setHours(0,0,0,0);var next=-1;
   list.forEach(function(r,i){if(next<0&&pf(r.fecha)>=hoy)next=i});
-  body.innerHTML="";
+  body.innerHTML="";MLIST=list;
   list.forEach(function(r,i){
     var d=pf(r.fecha),past=d<hoy,pres=/presencial/i.test(r.formato||""),dia=DIAS[d.getDay()],largo=dia+" "+d.getDate()+" de "+MESES[d.getMonth()],
         formal=largo+" de "+d.getFullYear(),det=r.detalles||"";
@@ -827,7 +978,7 @@ function renderMeet(list){
     tr.innerHTML='<td class="fe"><b>'+esc(largo.charAt(0).toUpperCase()+largo.slice(1))+(i===next?'<span class="nx">Próxima</span>':'')+'</b><small>'+d.getFullYear()+'</small></td>'
       +'<td class="fm"><span class="'+(pres?'pres':'vir')+'">'+esc(r.formato||"")+'</span></td>'
       +'<td class="de">'+esc(det)+'</td>'
-      +'<td class="ac">'+(past?'<span class="done">Realizada</span>':'<a class="btn" href="mailto:cumbre@somoscumbre.com?subject='+encodeURIComponent(asunto)+'&body='+encodeURIComponent(cuerpo)+'">Quiero participar</a>')+'</td>';
+      +'<td class="ac">'+(past?'<span class="done">Realizada</span>':'<button type="button" class="btn" data-reg="'+i+'">Quiero participar</button>')+'</td>';
     [].forEach.call(tr.children,function(td,k){td.setAttribute("data-l",["Fecha","Formato","Detalles",""][k])});
     body.appendChild(tr);
   });
@@ -835,6 +986,76 @@ function renderMeet(list){
   else note.hidden=true;
 }
 renderMeet(MEET);
+
+
+
+/* registro de visita (envío por FormSubmit a cumbre@somoscumbre.com) */
+var REG_URL="https://formsubmit.co/ajax/cumbre@somoscumbre.com",MAXB=5*1024*1024;
+var reg=$("#reg"),rgf=$("#rgf"),rgMeet=null;
+function rgv(id){return $("#"+id)}
+function rgErr(id,msg){var el=rgv(id),er=rgv(id+"-e");if(!er)return !msg;
+  if(msg){el.setAttribute("aria-invalid","true");er.textContent=msg;er.hidden=false}
+  else{el.removeAttribute("aria-invalid");er.hidden=true;er.textContent=""}
+  return !msg}
+function rgTipo(){var vis=rgv("rg-tipo").selectedIndex===1;
+  rgv("rg-wi").hidden=vis;rgv("rg-inv").disabled=vis;rgv("rg-wc").hidden=!vis;rgv("rg-cap").disabled=!vis;
+  rgErr("rg-inv","");rgErr("rg-cap","")}
+function rgFile(){var f=rgv("rg-file").files[0],d=rgv("rg-drop"),n=rgv("rg-fname"),e=rgv("rg-file-e");
+  e.hidden=true;e.textContent="";d.classList.remove("has");
+  if(!f){n.textContent="Sube tu voucher (JPG, PNG, PDF)";return true}
+  if(!/\.(jpe?g|png|pdf)$/i.test(f.name)){rgv("rg-file").value="";n.textContent="Sube tu voucher (JPG, PNG, PDF)";e.textContent="Formato no válido. Sube un archivo JPG, PNG o PDF.";e.hidden=false;return false}
+  if(f.size>MAXB){var mb=(f.size/1048576).toFixed(2).replace(".",",");rgv("rg-file").value="";n.textContent="Sube tu voucher (JPG, PNG, PDF)";e.textContent="El archivo pesa "+mb+" MB y supera el máximo permitido de 5 MB. Sube uno más liviano.";e.hidden=false;return false}
+  n.textContent=f.name;d.classList.add("has");return true}
+function rgOpen(m){
+  rgMeet=m;var d=pf(m.fecha),largo=DIAS[d.getDay()]+" "+d.getDate()+" de "+MESES[d.getMonth()]+" de "+d.getFullYear();
+  rgv("rg-ctx").innerHTML='<b>'+esc(largo.charAt(0).toUpperCase()+largo.slice(1))+'</b> · '+esc(m.formato||"")+(m.detalles?' · '+esc(m.detalles):'');
+  rgf.reset();rgTipo();rgv("rg-wr").hidden=true;rgv("rg-ruc").disabled=true;rgFile();
+  [].forEach.call(rgf.querySelectorAll("[aria-invalid]"),function(x){x.removeAttribute("aria-invalid")});
+  [].forEach.call(rgf.querySelectorAll(".rg-e"),function(x){x.hidden=true});
+  rgv("rg-form-e").hidden=true;rgv("rg-fail").hidden=true;rgv("rg-main").hidden=false;rgv("rg-ok").hidden=true;
+  var b=rgv("rg-go");b.disabled=false;b.textContent="Confirmar mi asistencia";
+  reg.showModal();reg.scrollTop=0;
+}
+$("#mbody").addEventListener("click",function(e){var b=e.target.closest("[data-reg]");if(!b)return;var m=MLIST[+b.getAttribute("data-reg")];if(m)rgOpen(m)});
+rgv("rg-x").addEventListener("click",function(){reg.close()});rgv("rg-close2").addEventListener("click",function(){reg.close()});
+reg.addEventListener("click",function(e){if(e.target===reg)reg.close()});
+rgv("rg-tipo").addEventListener("change",rgTipo);
+rgv("rg-fact").addEventListener("change",function(){var on=this.checked;rgv("rg-wr").hidden=!on;rgv("rg-ruc").disabled=!on;if(on)rgv("rg-ruc").focus();else{rgv("rg-ruc").value="";rgErr("rg-ruc","")}});
+rgv("rg-ruc").addEventListener("input",function(){var v=this.value.replace(/\D/g,"").slice(0,11);if(v!==this.value)this.value=v;if(v.length===11)rgErr("rg-ruc","")});
+var rgDrop=rgv("rg-drop"),rgInput=rgv("rg-file");
+rgDrop.addEventListener("click",function(){rgInput.click()});
+rgDrop.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();rgInput.click()}});
+rgInput.addEventListener("change",rgFile);
+["dragenter","dragover"].forEach(function(t){rgDrop.addEventListener(t,function(e){e.preventDefault();rgDrop.classList.add("over")})});
+["dragleave","drop"].forEach(function(t){rgDrop.addEventListener(t,function(e){e.preventDefault();rgDrop.classList.remove("over")})});
+rgDrop.addEventListener("drop",function(e){var f=e.dataTransfer&&e.dataTransfer.files[0];if(!f)return;try{var dt=new DataTransfer();dt.items.add(f);rgInput.files=dt.files}catch(x){return}rgFile()});
+rgf.addEventListener("input",function(e){var id=e.target.id;if(id&&e.target.getAttribute("aria-invalid")==="true"&&id!=="rg-ruc")rgErr(id,"");rgv("rg-form-e").hidden=true});
+rgf.addEventListener("submit",function(e){
+  e.preventDefault();var ok=true,vis=rgv("rg-tipo").selectedIndex===1;
+  function chk(id,test,msg){var v=rgv(id).value.trim();var r=rgErr(id,test(v)?"":msg);if(!r)ok=false}
+  if(vis)chk("rg-cap",function(v){return v},"Escribe el nombre de tu capítulo.");else chk("rg-inv",function(v){return v},"Indica quién te invitó.");
+  chk("rg-nom",function(v){return v.length>=3},"Escribe tu nombre y apellidos.");
+  chk("rg-mail",function(v){return /^\S+@\S+\.\S+$/.test(v)},"Escribe un correo válido, por ejemplo nombre@empresa.com.");
+  chk("rg-wa",function(v){return v.replace(/\D/g,"").length>=9},"Escribe un número de WhatsApp de al menos 9 dígitos.");
+  chk("rg-emp",function(v){return v},"Escribe el nombre de tu empresa.");
+  chk("rg-rub",function(v){return v},"Escribe tu rubro o especialidad.");
+  if(rgv("rg-fact").checked)chk("rg-ruc",function(v){return /^\d{11}$/.test(v)},"El RUC debe tener exactamente 11 dígitos numéricos.");
+  var fe=rgv("rg-file-e");
+  if(!rgInput.files.length){fe.textContent="Adjunta tu comprobante de pago (JPG, PNG o PDF, máximo 5 MB).";fe.hidden=false;ok=false}
+  else if(!rgFile())ok=false;
+  rgv("rg-form-e").hidden=ok;rgv("rg-fail").hidden=true;
+  if(!ok){var bad=rgf.querySelector('[aria-invalid="true"]');if(bad)bad.focus();else rgDrop.focus();return}
+  var fd=new FormData(rgf),d=pf(rgMeet.fecha),largo=DIAS[d.getDay()]+" "+d.getDate()+" de "+MESES[d.getMonth()]+" de "+d.getFullYear();
+  fd.append("Reunión",largo+" · "+(rgMeet.formato||"")+(rgMeet.detalles?" · "+rgMeet.detalles:""));
+  fd.append("Factura",rgv("rg-fact").checked?"Sí":"No");
+  fd.append("_subject","Registro – Reunión del "+largo+" ("+(rgMeet.formato||"")+") – "+rgv("rg-nom").value.trim());
+  fd.append("_template","table");fd.append("_captcha","false");
+  var btn=rgv("rg-go");btn.disabled=true;btn.textContent="Enviando…";
+  fetch(REG_URL,{method:"POST",body:fd,headers:{Accept:"application/json"}})
+    .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok||j.success==="false"||j.success===false)throw new Error(j.message||"error");return j})})
+    .then(function(){rgv("rg-main").hidden=true;rgv("rg-ok").hidden=false;reg.scrollTop=0;rgv("rg-close2").focus()})
+    .catch(function(){var f=rgv("rg-fail");f.innerHTML='No pudimos enviar tu registro. Revisa tu conexión e inténtalo de nuevo, o escríbenos a <a href="mailto:cumbre@somoscumbre.com" style="color:var(--red);font-weight:700;text-decoration:underline">cumbre@somoscumbre.com</a>.';f.hidden=false;btn.disabled=false;btn.textContent="Confirmar mi asistencia"});
+});
 
 /* form */
 var rules={

@@ -26,8 +26,8 @@ window.REUNIONES = [
   },
   {
     "fecha": "2026-11-19",
-    "formato": "Virtual",
-    "detalles": "Enlace de conexión y horario: por confirmar."
+    "formato": "Presencial",
+    "detalles": "Hotel Colón Miraflores · 6:30 am"
   },
   {
     "fecha": "2026-11-26",
